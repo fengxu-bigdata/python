@@ -1,0 +1,31 @@
+import xlwt
+import day1
+
+
+# 将文件内容保存到excel
+def save_excel(path, sheetname, column_name_list, data_list):
+    workbook = xlwt.Workbook()
+    sheet1 = workbook.add_sheet(sheetname)
+    # 遍历列名集合，写入表格第一行 ，当做表头
+    for i in range(0, len(column_name_list)):
+        sheet1.write(0, i, column_name_list[i])
+    i = 1
+    for v in data_list:
+        val = v.split("：")  # 将内容用中文冒号分割
+        for j in range(0, len(val)):
+            sheet1.write(i, j, val[j])
+            print(val[j])
+        i = i + 1
+    workbook.save(path)
+    print("信息保存成功，总记录条数：" + str(len(data_list)))
+
+
+if __name__ == '__main__':
+    read_path = input("请输入文件路径：")
+    save_path = input("请输入文件保存路径：")
+    sheet_name = input("请输入sheet名称：")
+    column_name = input("请输入列名，并使用英文逗号隔开:")
+    column_name_list = column_name.split(",")
+    read_str = day1.get_str(read_path)
+    read_list = read_str.split("\n")
+    save_excel(save_path, sheet_name, column_name_list, read_list)
