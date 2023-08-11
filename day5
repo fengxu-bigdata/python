@@ -1,0 +1,10 @@
+import cv2
+import os
+
+path = input("请输入需要加水印的图片文件夹路径：")
+file_list = os.listdir(path)
+for filename in file_list:
+    img_stream = cv2.imread(path + "\\" + filename, cv2.IMREAD_COLOR)
+    # 图片， 文字，位置，字体，字号，颜色，厚度
+    cv2.putText(img_stream, "aixuge", (200, 200), 2, 5, (255, 255, 0), 2)
+    cv2.imwrite(path + filename, img_stream)
