@@ -1,0 +1,15 @@
+import re
+import day1
+
+
+# 正则获取目标信息，邮箱地址
+def get_re_str(str):
+    return re.findall(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}", str)
+
+
+if __name__ == '__main__':
+    email_path = input("请输入邮箱源文件路径：")
+    email_save_path = input("请输入邮箱提取后的保存路径：")
+    email_str = day1.get_str(email_path)
+    email_list = get_re_str(email_str)
+    day1.save_res(email_list, email_save_path)
