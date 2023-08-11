@@ -1,0 +1,33 @@
+import re
+
+
+# 读取目标文件
+def get_str(path):
+    stream = open(path,encoding="utf-8")
+    data = stream.read()
+    stream.close()
+    return data
+
+
+# 利用正则表达式获取文本号码
+def get_phone_number(str):
+    res = re.findall(r'(13\d{9}|14[5|7]\d{8}|15\d{9}|166{\d{8}|17[3|6|7]{\d{8}|18\d{9})', str)
+    return res
+
+
+# 保存得到的号码
+def save_res(res, save_path):
+    save_stream = open(save_path, "w")
+    for phone in res:
+        save_stream.write(phone)
+        save_stream.write("\n")
+    save_stream.write("\n号码共计：" + str(len(res)))
+    save_stream.close()
+    print('号码读取完毕')
+
+
+if __name__ == '__main__':
+    path = input("请输入文件路径：")
+    save_path = input("请输入文件保存的路径：")
+    res = get_phone_number(get_str(path))
+    save_res(res, save_path)
